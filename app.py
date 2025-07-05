@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request, render_template_string, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import smtplib # Importamos la librería para correos
 
 app = Flask(__name__)
@@ -48,22 +50,35 @@ def registrar():
     
     # Enviar el correo electrónico
     try:
-        remitente = "tu_correo@gmail.com"  # <<< TU CORREO DE GMAIL
-        password = "tu_contraseña_de_aplicacion" # <<< TU CONTRASEÑA DE APLICACIÓN DE GOOGLE
-        destinatario = ["jaquinof@autonoma.edu.pe"
-                        josephzx12@gmail.com]
-        asunto = f"Nuevo Registro: {nombre} {apellido}"
-        mensaje = f"Se ha registrado un nuevo usuario:\n\nNombre: {nombre}\nApellido: {apellido}\nDNI: {dni}"
-        email_body = f"Subject: {asunto}\n\n{mensaje}"
+         remitente = "tu_correo@gmail.com"
+    password = "tu_contraseña_de_aplicacion"
+    destinatarios = ["jaquinof@autonoma.edu.pe", "josephzx12@gmail.com"]
 
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-            smtp.starttls()
-            smtp.login(remitente, password)
-            smtp.sendmail(remitente, destinatario, email_body.encode('utf-8'))
-    except Exception as e:
-        print(f"Error al enviar correo: {e}") # Esto mostrará el error en los logs de Render
+    # --- CÓDIGO MEJORADO PARA EL CORREO ---
+    # Crear el objeto del mensaje
+    msg = MIMEMultipart()
+    msg['From'] = remitente
+    msg['To'] = ", ".join(destinatarios)
+    msg['Subject'] = f"Nuevo Registro: {request.form['nombre']} {request.form['apellido']}"
 
-    return redirect(url_for('ver_registros'))
+    # Cuerpo del mensaje
+    cuerpo_del_correo = f"Se ha registrado un nuevo usuario:\n\nNombre: {request.form['nombre']}\nApellido: {request.form['apellido']}\nDNI: {request.form['dni']}"
+
+    # Adjuntar el cuerpo del mensaje asegurando la codificación correcta
+    msg.attach(MIMEText(cuerpo_del_correo, 'plain', 'utf-8'))
+
+    # --- FIN DEL CÓDIGO MEJORADO ---
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.starttls()
+        smtp.login(remitente, password)
+        # Envía el mensaje como un string formateado correctamente
+        smtp.sendmail(remitente, destinatarios, msg.as_string())
+
+except Exception as e:
+    print(f"Error al enviar correo: {e}")
+
+return redirect(url_for('ver_registros'))
 
 # --- RUTA PARA VER TODOS LOS REGISTROS ---
 @app.route('/registros')
