@@ -50,7 +50,8 @@ def registrar():
     try:
         remitente = "tu_correo@gmail.com"  # <<< TU CORREO DE GMAIL
         password = "tu_contraseña_de_aplicacion" # <<< TU CONTRASEÑA DE APLICACIÓN DE GOOGLE
-        destinatario = "ycisnerosn@autonoma.edu.pe"
+        destinatario = ["jaquinof@autonoma.edu.pe"
+                        josephzx12@gmail.com]
         asunto = f"Nuevo Registro: {nombre} {apellido}"
         mensaje = f"Se ha registrado un nuevo usuario:\n\nNombre: {nombre}\nApellido: {apellido}\nDNI: {dni}"
         email_body = f"Subject: {asunto}\n\n{mensaje}"
