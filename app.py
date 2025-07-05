@@ -29,7 +29,83 @@ with app.app_context():
 
 # --- CÓDIGO DEL FORMULARIO HTML ---
 HTML_FORMULARIO = """
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Registro</title><style>body{font-family:sans-serif;max-width:500px;margin:40px auto;padding:25px;border:1px solid #e1e1e1;border-radius:12px}h2{text-align:center}label{display:block;margin-top:20px;font-weight:bold}input{width:100%;padding:10px;margin-top:5px;box-sizing:border-box;border-radius:6px;border:1px solid #ccc}button{display:block;width:100%;background-color:#007bff;color:white;padding:12px;border:none;border-radius:6px;cursor:pointer;margin-top:25px;font-size:16px}a{display:block;text-align:center;margin-top:20px}</style></head><body><h2>Formulario de Registro del Proyecto</h2><form action="/registrar" method="POST"><label for="nombre">Nombre:</label><input type="text" id="nombre" name="nombre" required><label for="apellido">Apellido:</label><input type="text" id="apellido" name="apellido" required><label for="dni">DNI:</label><input type="text" id="dni" name="dni" required maxlength="8" pattern="[0-9]{8}"><button type="submit">Guardar y Enviar</button></form><a href="/registros">Ver todos los registros</a></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Proyecto Final</title>
+    <style>
+        /* --- TEMA OSCURO --- */
+        body {
+            background-color: #121212; /* Fondo principal oscuro */
+            color: #e0e0e0; /* Color de texto principal (gris claro) */
+            font-family: sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 25px;
+            border: 1px solid #333; /* Borde sutil */
+            border-radius: 12px;
+        }
+        h2 {
+            text-align: center;
+            color: #ffffff; /* Título principal en blanco */
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #bb86fc; /* Color de acento para las etiquetas (violeta) */
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: 1px solid #444; /* Borde del input */
+            background-color: #2c2c2c; /* Fondo del input */
+            color: #e0e0e0; /* Color del texto dentro del input */
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #bb86fc; /* Color de acento para el botón */
+            color: #121212; /* Texto del botón oscuro para contraste */
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #9a6ac2; /* Color del botón al pasar el mouse */
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #03dac6; /* Otro color de acento para los enlaces (cyan) */
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulario de Registro del Proyecto</h2>
+    <form action="/registrar" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required maxlength="8" pattern="[0-9]{8}">
+        <button type="submit">Guardar y Enviar</button>
+    </form>
+    <a href="/registros">Ver todos los registros</a>
+</body>
+</html>
 """
 
 # --- RUTA PRINCIPAL QUE MUESTRA EL FORMULARIO ---
